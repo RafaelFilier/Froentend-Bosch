@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ProgressBar } from "react-native-paper";
 import { useEffect, useState } from 'react';
 
-export default function Loading() {
+export default function Batalha() {
   const navigation = useNavigation();
 
   return (

@@ -9,6 +9,8 @@ import Entrar from './src/screens/Entrar';
 import Cadastrar from './src/screens/Cadastrar';
 import Treino from './src/screens/Treino';
 import TreinoConcluido from './src/screens/TreinoConcluido';
+import Batalha from './src/screens/Batalha';
+import Perfil from './src/screens/Perfil';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +30,8 @@ export default function App() {
         <Stack.Screen name="Cadastrar" component={Cadastrar} />
         <Stack.Screen name="Treino" component={Treino} />
         <Stack.Screen name="TreinoConcluido" component={TreinoConcluido} />
+        <Stack.Screen name="Batalha" component={Batalha} />
+        <Stack.Screen name="Perfil" component={Perfil} />
       </Stack.Navigator>
     </NavigationContainer>
   );

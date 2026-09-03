@@ -4,7 +4,7 @@
     "slug": "GymQuestApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/Images/no_changeLogo.png",
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true
