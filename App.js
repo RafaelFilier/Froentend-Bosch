@@ -8,6 +8,7 @@ import Home from './src/screens/Home';
 import Entrar from './src/screens/Entrar';
 import Cadastrar from './src/screens/Cadastrar';
 import Treino from './src/screens/Treino';
+import TreinoConcluido from './src/screens/TreinoConcluido';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ export default function App() {
         <Stack.Screen name="Entrar" component={Entrar} />
         <Stack.Screen name="Cadastrar" component={Cadastrar} />
         <Stack.Screen name="Treino" component={Treino} />
+        <Stack.Screen name="TreinoConcluido" component={TreinoConcluido} />
       </Stack.Navigator>
     </NavigationContainer>
   );

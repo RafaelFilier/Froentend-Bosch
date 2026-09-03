@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView, Modal, TextInput, Alert } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Modal, TextInput, Alert } from 'react-native';
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ProgressBar } from "react-native-paper";
@@ -235,6 +235,7 @@ export default function Treino() {
       <View style={styles.tabBar}>
           <Text style={styles.rewardText}>XP a receber{`\n`}+1000</Text>
           <TouchableOpacity
+            onPress={() => navigation.navigate('TreinoConcluido')}
             style={styles.bottomButton}
             activeOpacity={0.85}
           >
@@ -282,35 +283,6 @@ const styles = StyleSheet.create({
     marginTop: '14%',
   },
 
-  xpContainer: {
-    width: '70%',
-    marginTop: 0,
-    alignSelf: 'flex-end',
-    marginRight: 20,
-  },
-
-  xpBar: {
-    height: 8,
-    borderRadius: 10,
-    backgroundColor: '#9CA3AF',
-    alignSelf: 'flex-end',
-  },
-
-  xpText: {
-    color: '#faf3f3',
-    fontSize: 10,
-    textAlign: 'center',
-    marginBottom: 5,
-  },
-
-  streak_square: {
-    width: '47.5%',
-    height: 105,
-    borderRadius: 10,
-    backgroundColor: '#141A24',
-    borderWidth: 2,
-    borderColor: '#000',
-  }, 
   life_square: {
     width: '47.5%',
     height: 105,
@@ -325,28 +297,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
-  },
-  lifeValue: {
-    color: '#fff',
-    fontSize: 25,
-    fontWeight: 'normal',
-    marginTop: 8,
-  },
-  points_square: {
-    width: '47.5%',
-    height: 105,
-    borderRadius: 10,
-    backgroundColor: '#141A24',
-    borderWidth: 2,
-    borderColor: '#000',
-  },
-  workout_square: {
-    width: '47.5%',
-    height: 105,
-    borderRadius: 10,
-    backgroundColor: '#141A24',
-    borderWidth: 2,
-    borderColor: '#000',
   },
   squares_container: {
     width: '94%',
@@ -365,20 +315,6 @@ const styles = StyleSheet.create({
     rowGap: 10,
     alignSelf: 'center',
     marginTop: '4%',
-  },
-  squareTitle: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 10,
-    marginTop: 10,
-  },
-  squareValue: {
-    color: '#fff',
-    fontSize: 25,
-    fontWeight: 'normal',
-    marginLeft: 15,
-    marginTop: 10,
   },
   selectedSquare: {
     backgroundColor: '#315611',
@@ -511,35 +447,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 20,
   },
-  summary_row: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    marginTop: 12,
-  },
-  summary_text: {
-    color: '#9CA3AF',
-    fontSize: 14,
-    fontWeight: 'normal',
-  },
-
-  btnGreen: {
-    backgroundColor: '#8EE524',
-    borderRadius: 10,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 10,
-    width: '90%',
-    alignSelf: 'center',
-    marginHorizontal: '5%',
-  },
-
-
-  btnText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
   rewardText: {
     color: '#9CA3AF',
     fontSize: 12,
@@ -633,43 +540,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 10,
     paddingBottom: 12,
-  },
-  tabItem: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  tabIcon: {
-    color: '#7A8491',
-    fontSize: 19,
-  },
-  tabText: {
-    color: '#7A8491',
-    fontSize: 10,
-    marginTop: 4,
-  },
-  activeTab: {
-    color: '#8EE524',
-  },
-
-  xpContainer2: {
-    width: '90%',
-    marginTop: 0,
-    alignSelf: 'flex-end',
-    marginRight: 20,
-  },
-
-  xpBar2: {
-    height: 8,
-    borderRadius: 10,
-    backgroundColor: '#9CA3AF',
-    alignSelf: 'flex-end',
-  },
-
-  xpText2: {
-    color: '#9CA3AF',
-    fontSize: 10,
-    textAlign: 'left',
-    marginBottom: 5,
   },
 });
 

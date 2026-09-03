@@ -28,7 +28,7 @@ export default function Loading() {
     <View style={styles.container}>
 
         <Image 
-            source={require('../../assets/Images/logo.jpeg')}
+            source={require('../../assets/Images/no_changeLogo.png')}
             style={{ width: 200, height: 200, marginBottom: 20 }}
             resizeMode="contain"
         />
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#000000',
+    backgroundColor: '#0B0F17',
 
   },
 
