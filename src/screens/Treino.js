@@ -1,11 +1,92 @@
-import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
-import { useState } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView, Modal, TextInput, Alert } from 'react-native';
+import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ProgressBar } from "react-native-paper";
 
 export default function Treino() {
   const navigation = useNavigation();
   const [selectedSquare, setSelectedSquare] = useState(null);
+  const [exercises, setExercises] = useState([
+    { name: 'Supino Reto', details: '4 Séries X 15 Repetições' },
+    { name: 'Agachamento Livre', details: '4 Séries X 10 Repetições' },
+    { name: 'Remada Unilateral', details: '2 Séries X 13 Repetições' },
+  ]);
+  const [isAddExerciseVisible, setIsAddExerciseVisible] = useState(false);
+  const [editingExerciseIndex, setEditingExerciseIndex] = useState(null);
+  const [exerciseName, setExerciseName] = useState('');
+  const [exerciseDetails, setExerciseDetails] = useState('');
+
+  function addExercise() {
+    const name = exerciseName.trim();
+    const details = exerciseDetails.trim();
+
+    if (!name || !details) {
+      return;
+    }
+
+    if (editingExerciseIndex !== null) {
+      setExercises((currentExercises) => currentExercises.map((exercise, index) => (
+        index === editingExerciseIndex ? { name, details } : exercise
+      )));
+    } else {
+      setExercises((currentExercises) => [
+        ...currentExercises,
+        { name, details },
+      ]);
+    }
+
+    closeExerciseModal();
+  }
+
+  function openEditExercise(index) {
+    const exercise = exercises[index];
+    setEditingExerciseIndex(index);
+    setExerciseName(exercise.name);
+    setExerciseDetails(exercise.details);
+    setIsAddExerciseVisible(true);
+  }
+
+  function deleteExercise(index) {
+    Alert.alert(
+      'Excluir exercício',
+      `Deseja excluir ${exercises[index].name}?`,
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Excluir',
+          style: 'destructive',
+          onPress: () => setExercises((currentExercises) => (
+            currentExercises.filter((_, exerciseIndex) => exerciseIndex !== index)
+          )),
+        },
+      ]
+    );
+  }
+
+  function closeExerciseModal() {
+    setExerciseName('');
+    setExerciseDetails('');
+    setEditingExerciseIndex(null);
+    setIsAddExerciseVisible(false);
+  }
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+
+  useEffect(() => {
+    if (!isTimerRunning) {
+      return undefined;
+    }
+
+    const timer = setInterval(() => {
+      setElapsedSeconds((currentSeconds) => currentSeconds + 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [isTimerRunning]);
+
+  const hours = String(Math.floor(elapsedSeconds / 3600)).padStart(2, '0');
+  const minutes = String(Math.floor((elapsedSeconds % 3600) / 60)).padStart(2, '0');
+  const seconds = String(elapsedSeconds % 60).padStart(2, '0');
 
   return (
     <View style={styles.container}>
@@ -14,18 +95,21 @@ export default function Treino() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+                <Text style={styles.backIcon}>{'<'}</Text>
+        </TouchableOpacity>
+        
         <View style={styles.text_user}>
-          <Text style={{ color: '#fff', fontSize: 24, fontWeight: 'bold' }}>Registro de treino</Text>
+          <Text style={{ color: '#fff', fontSize: 24, fontWeight: 'bold', margin: '5%' }}>Registro de treino</Text>
         </View>
         <View style={styles.squares_container}>
           <View style={styles.squares_row}>
             <TouchableOpacity
-              style={[styles.streak_square, selectedSquare === 'streak' && styles.selectedSquare]}
+              style={[styles.life_square, selectedSquare === 'streak' && styles.selectedSquare]}
               onPress={() => setSelectedSquare('streak')}
               activeOpacity={0.8}
             >
-              <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold', marginLeft: 10, marginTop: 10 }}>🔥 Streak</Text>
-              <Text style={{ color: '#fff', fontSize: 25, fontWeight: 'normal', marginLeft: 15, marginTop: 10 }}>10 dias</Text>
+              <Text style={styles.lifeTitle}>🏋️ Musculaçao</Text>
               {selectedSquare === 'streak' && <Text style={styles.checkMark}>✓</Text>}
             </TouchableOpacity>
             <TouchableOpacity
@@ -33,51 +117,120 @@ export default function Treino() {
               onPress={() => setSelectedSquare('life')}
               activeOpacity={0.8}
             >
-              <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold', marginLeft: 10, marginTop: 10 }}>❤️ Streak</Text>
-              <Text style={{ color: '#fff', fontSize: 25, fontWeight: 'normal', marginLeft: 15, marginTop: 10 }}>3 ❤️</Text>
+              <Text style={styles.lifeTitle}>❤️ Cardio</Text>
               {selectedSquare === 'life' && <Text style={styles.checkMark}>✓</Text>}
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.points_square, selectedSquare === 'points' && styles.selectedSquare]}
+              style={[styles.life_square, selectedSquare === 'points' && styles.selectedSquare]}
               onPress={() => setSelectedSquare('points')}
               activeOpacity={0.8}
             >
-              <Text style={styles.squareTitle}>🌟 Pontos</Text>
-              <Text style={styles.squareValue}>120</Text>
+              <Text style={styles.lifeTitle}>🛠️ Funcional</Text>
               {selectedSquare === 'points' && <Text style={styles.checkMark}>✓</Text>}
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.workout_square, selectedSquare === 'workout' && styles.selectedSquare]}
+              style={[styles.life_square, selectedSquare === 'workout' && styles.selectedSquare]}
               onPress={() => setSelectedSquare('workout')}
               activeOpacity={0.8}
             >
-              <Text style={styles.squareTitle}>🏋️ Treinos</Text>
-              <Text style={styles.squareValue}>10</Text>
+              <Text style={styles.lifeTitle}>••• Outros</Text>
               {selectedSquare === 'workout' && <Text style={styles.checkMark}>✓</Text>}
             </TouchableOpacity>
           </View>
         </View>
         <View style={styles.desafio_square}>
-          <Text style={{ color: '#FF2BE3', fontSize: 16, fontWeight: 'bold', marginLeft: 10, marginTop: 10 }}>🏆 Desafio do Dia</Text>
-          <Text style={{ color: '#9CA3AF', fontSize: 12, fontWeight: 'normal', marginLeft: 15, marginTop: 10 }}>Treine 4 vezes nessa semana</Text>
-          <View style={styles.xpContainer2}>
-            <Text style={styles.xpText2}>3/4 concluidos</Text>
-            <ProgressBar
-              progress={0.75}
-              color="#8B45FF"
-              style={styles.xpBar2}
-            />
-          </View>
+          <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold', marginTop: 10, alignSelf: 'center' }}>Duração de Treino</Text>
+          <Text style={styles.timerText}>{hours}:{minutes}:{seconds}</Text>
+          <TouchableOpacity
+            style={styles.timerButton}
+            onPress={() => setIsTimerRunning((running) => !running)}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.timerButtonText}>{isTimerRunning ? 'Pausar' : 'Iniciar'}</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.resumo_square}>
-          <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold', marginLeft: 10, marginTop: 10 }}>Resumo da semana</Text>
-          <View style={styles.summary_row}>
-            <Text style={styles.summary_text}>❤️ 3 Treinos</Text>
-            <Text style={styles.summary_text}>🌟 120 pontos</Text>
-            <Text style={styles.summary_text}>🏆 10 treinos concluídos</Text>
-          </View>
+          <Text style={styles.exercisesTitle}>Exercícios</Text>
+          {exercises.map((exercise, index) => (
+            <TouchableOpacity
+              key={`${exercise.name}-${index}`}
+              style={styles.exerciseItem}
+              activeOpacity={0.8}
+            >
+              <View style={styles.exerciseIcon}>
+                <Text style={styles.exerciseIconText}>🏋️</Text>
+              </View>
+              <View style={styles.exerciseInfo}>
+                <Text style={styles.exerciseName}>{exercise.name}</Text>
+                <Text style={styles.exerciseDetails}>{exercise.details}</Text>
+              </View>
+              <View style={styles.exerciseActions}>
+                <TouchableOpacity onPress={() => openEditExercise(index)}>
+                  <Text style={styles.editAction}>Editar</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => deleteExercise(index)}>
+                  <Text style={styles.deleteAction}>Excluir</Text>
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
+          ))}
+          <TouchableOpacity
+            style={styles.addExerciseButton}
+            onPress={() => {
+              setEditingExerciseIndex(null);
+              setExerciseName('');
+              setExerciseDetails('');
+              setIsAddExerciseVisible(true);
+            }}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.addExerciseIcon}>+</Text>
+            <Text style={styles.addExerciseText}>Adicionar exercício</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
+
+      <Modal
+        visible={isAddExerciseVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={closeExerciseModal}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>
+              {editingExerciseIndex === null ? 'Novo exercício' : 'Editar exercício'}
+            </Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Nome do exercício"
+              placeholderTextColor="#7A8491"
+              value={exerciseName}
+              onChangeText={setExerciseName}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Ex.: 4 Séries X 12 Repetições"
+              placeholderTextColor="#7A8491"
+              value={exerciseDetails}
+              onChangeText={setExerciseDetails}
+            />
+            <View style={styles.modalActions}>
+              <TouchableOpacity
+                style={styles.cancelButton}
+                onPress={closeExerciseModal}
+              >
+                <Text style={styles.cancelButtonText}>Cancelar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.saveButton} onPress={addExercise}>
+                <Text style={styles.saveButtonText}>
+                  {editingExerciseIndex === null ? 'Adicionar' : 'Salvar'}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
 
       <View style={styles.tabBar}>
           <Text style={styles.rewardText}>XP a receber{`\n`}+1000</Text>
@@ -96,6 +249,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0B0F17',
+  },
+
+  backButton: {
+    width: 30,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '5%',
+    marginLeft: '5%',
+  },
+
+  backIcon: {
+    fontSize: 36,
+    color: '#fff',
+    lineHeight: 34,
   },
 
   scrollView: {
@@ -150,6 +318,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#141A24',
     borderWidth: 2,
     borderColor: '#000',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  lifeTitle: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  lifeValue: {
+    color: '#fff',
+    fontSize: 25,
+    fontWeight: 'normal',
+    marginTop: 8,
   },
   points_square: {
     width: '47.5%',
@@ -219,13 +400,116 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#141A24',
   },
+  timerText: {
+    color: '#8EE524',
+    fontSize: 30,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    marginTop: 1,
+  },
+  timerButton: {
+    backgroundColor: '#8EE524',
+    borderRadius: 8,
+    alignSelf: 'center',
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+    marginTop: 1,
+  },
+  timerButtonText: {
+    color: '#0B0F17',
+    fontWeight: 'bold',
+    fontSize: 12,
+  },
   resumo_square: {
     width: '90%',
-    height: 110,
+    minHeight: 270,
     alignSelf: 'center',
     marginTop: 5,
-    borderRadius: 10,
-    backgroundColor: '#141A24',
+    padding: 10,
+    borderRadius: 14,
+    backgroundColor: '#10151F',
+    borderWidth: 2,
+    borderColor: '#000',
+  },
+  exercisesTitle: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  exerciseItem: {
+    minHeight: 58,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#1B2029',
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: '#080A0D',
+    paddingHorizontal: 8,
+    marginBottom: 7,
+  },
+  exerciseIcon: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#2B3039',
+  },
+  exerciseIconText: {
+    fontSize: 18,
+  },
+  exerciseInfo: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  exerciseName: {
+    color: '#fff',
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+  exerciseDetails: {
+    color: '#9CA3AF',
+    fontSize: 11,
+    marginTop: 5,
+  },
+  exerciseActions: {
+    alignItems: 'flex-end',
+    gap: 5,
+    marginLeft: 6,
+  },
+  editAction: {
+    color: '#8EE524',
+    fontSize: 11,
+    fontWeight: 'bold',
+  },
+  deleteAction: {
+    color: '#FF6B6B',
+    fontSize: 11,
+    fontWeight: 'bold',
+  },
+  addExerciseButton: {
+    minHeight: 58,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#1B2029',
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: '#080A0D',
+    paddingHorizontal: 14,
+  },
+  addExerciseIcon: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: 'bold',
+    lineHeight: 30,
+  },
+  addExerciseText: {
+    color: '#fff',
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginLeft: 20,
   },
   summary_row: {
     flexDirection: 'row',
@@ -278,6 +562,60 @@ const styles = StyleSheet.create({
   bottomButtonText: {
     color: '#0B0F17',
     fontSize: 14,
+    fontWeight: 'bold',
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 20,
+    backgroundColor: 'rgba(0, 0, 0, 0.65)',
+  },
+  modalContent: {
+    backgroundColor: '#141A24',
+    borderRadius: 14,
+    borderWidth: 2,
+    borderColor: '#000',
+    padding: 20,
+  },
+  modalTitle: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 14,
+  },
+  input: {
+    height: 46,
+    color: '#fff',
+    backgroundColor: '#1B2029',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#303845',
+    paddingHorizontal: 12,
+    marginBottom: 10,
+  },
+  modalActions: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    gap: 10,
+    marginTop: 6,
+  },
+  cancelButton: {
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+  },
+  cancelButtonText: {
+    color: '#9CA3AF',
+    fontWeight: 'bold',
+  },
+  saveButton: {
+    backgroundColor: '#8EE524',
+    borderRadius: 8,
+    justifyContent: 'center',
+    paddingHorizontal: 14,
+    minHeight: 40,
+  },
+  saveButtonText: {
+    color: '#0B0F17',
     fontWeight: 'bold',
   },
   tabBar: {
