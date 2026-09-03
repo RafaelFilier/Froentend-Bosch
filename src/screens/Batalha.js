@@ -1,11 +1,6 @@
-import { StyleSheet, View, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { ProgressBar } from "react-native-paper";
-import { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 export default function Batalha() {
-  const navigation = useNavigation();
-
   return (
     <View style={styles.container}>
     </View>

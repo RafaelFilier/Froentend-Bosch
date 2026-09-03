@@ -79,7 +79,7 @@ export default function Home() {
           </TouchableOpacity>
           <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Cadastrar')}>
             <Text style={styles.tabIcon}>🥇</Text>
-            <Text style={styles.tabText}>Ranking</Text>
+            <Text style={styles.tabText}>Conquistas</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.tabItem}>
             <Text style={styles.tabIcon}>🏆</Text>

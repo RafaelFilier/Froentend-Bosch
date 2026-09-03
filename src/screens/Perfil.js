@@ -91,6 +91,12 @@ export default function Perfil() {
         >
           <Text style={styles.btnText}>Configurações</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Objetivos')}
+          style={styles.btnGreen}
+        >
+          <Text style={styles.btnText}>Objetivos</Text>
+        </TouchableOpacity>
       </ScrollView>
 
     </View>
@@ -283,56 +289,6 @@ const styles = StyleSheet.create({
     color: '#000',
     fontWeight: 'bold',
     fontSize: 16,
-  },
-  tabBar: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 64,
-    backgroundColor: '#141A24',
-    borderTopWidth: 1,
-    borderTopColor: '#27313D',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingTop: 8,
-  },
-  tabItem: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  tabIcon: {
-    color: '#7A8491',
-    fontSize: 19,
-  },
-  tabText: {
-    color: '#7A8491',
-    fontSize: 10,
-    marginTop: 4,
-  },
-  activeTab: {
-    color: '#8EE524',
-  },
-
-  xpContainer2: {
-    width: '90%',
-    marginTop: 0,
-    alignSelf: 'flex-end',
-    marginRight: 20,
-  },
-
-  xpBar2: {
-    height: 8,
-    borderRadius: 10,
-    backgroundColor: '#9CA3AF',
-    alignSelf: 'flex-end',
-  },
-
-  xpText2: {
-    color: '#9CA3AF',
-    fontSize: 10,
-    textAlign: 'left',
-    marginBottom: 5,
   },
 });
 

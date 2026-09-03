@@ -1,7 +1,5 @@
 import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { ProgressBar } from "react-native-paper";
-import { useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Login() {
@@ -83,11 +81,6 @@ const styles = StyleSheet.create({
     left: '50%',
     marginLeft: -100,
     marginTop: -100
-  },
-    image: {
-    width: 500,
-    height: 900,
-    marginTop: -200,
   },
     button_entrar: {
     backgroundColor: '#00CF75',

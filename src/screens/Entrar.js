@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native'
-import React, { useState } from 'react'
 
 const Entrar = ({ navigation }) => {
 
@@ -90,12 +89,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  label: {
-    fontSize: 14,
-    color: '#3f454a',
-    marginBottom: 4,
-  },
-
   input: {
     backgroundColor: '#d8dce9',
     borderRadius: 30,
@@ -118,25 +111,6 @@ const styles = StyleSheet.create({
     color: '#000',
     fontWeight: 'bold',
   },
-
-  separator: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 54,
-  },
-
-  line: {
-    flex: 1,
-    height: 1,
-    backgroundColor: '#8e969d',
-  },
-
-  sepText: {
-    marginHorizontal: 12,
-    fontSize: 13,
-    color: '#485057',
-  },
-
 
 });
   
