@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ProgressBar } from "react-native-paper";
 
@@ -7,6 +7,11 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.text_user}>
           <Text style={{ color: '#fff', fontSize: 24, fontWeight: 'bold' }}>Olá, Usuario</Text>
           <Text style={{ color: '#7a7a7a', fontSize: 14, fontWeight: 'normal' }}>Pronto para evoluir hoje!</Text>
@@ -61,19 +66,20 @@ export default function Home() {
         >
           <Text style={styles.btnText}>🏋️ Iniciar Treino</Text>
         </TouchableOpacity>
+      </ScrollView>
 
         <View style={styles.tabBar}>
           <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Home')}>
             <Text style={[styles.tabIcon, styles.activeTab]}>⌂</Text>
             <Text style={[styles.tabText, styles.activeTab]}>Início</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Entrar')}>
+          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Treino')}>
             <Text style={styles.tabIcon}>🏋</Text>
             <Text style={styles.tabText}>Treinos</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Cadastrar')}>
-            <Text style={styles.tabIcon}>♙</Text>
-            <Text style={styles.tabText}>Perfil</Text>
+            <Text style={styles.tabIcon}>🥇</Text>
+            <Text style={styles.tabText}>Conquistas</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.tabItem}>
             <Text style={styles.tabIcon}>🏆</Text>
@@ -92,7 +98,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0B0F17',
-    paddingBottom: 70,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingBottom: 106,
 
   },
 
@@ -200,8 +211,9 @@ const styles = StyleSheet.create({
 
 
   btnText: {
-    color: '#fff',
+    color: '#000',
     fontWeight: 'bold',
+    fontSize: 16,
   },
   tabBar: {
     position: 'absolute',
