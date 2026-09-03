@@ -77,11 +77,11 @@ export default function Home() {
             <Text style={styles.tabIcon}>🏋</Text>
             <Text style={styles.tabText}>Treinos</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Cadastrar')}>
+          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Conquistas')}>
             <Text style={styles.tabIcon}>🥇</Text>
             <Text style={styles.tabText}>Conquistas</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tabItem}>
+          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Ranking')}>
             <Text style={styles.tabIcon}>🏆</Text>
             <Text style={styles.tabText}>Ranking</Text>
           </TouchableOpacity>

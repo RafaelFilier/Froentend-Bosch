@@ -12,6 +12,8 @@ import TreinoConcluido from './src/screens/TreinoConcluido';
 import Batalha from './src/screens/Batalha';
 import Perfil from './src/screens/Perfil';
 import Objetivos from './src/screens/Objetivos';
+import Conquistas from './src/screens/Conquistas';
+import Ranking from './src/screens/Ranking';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +36,8 @@ export default function App() {
         <Stack.Screen name="Batalha" component={Batalha} />
         <Stack.Screen name="Perfil" component={Perfil} />
         <Stack.Screen name="Objetivos" component={Objetivos} />
+        <Stack.Screen name="Conquistas" component={Conquistas} />
+        <Stack.Screen name="Ranking" component={Ranking} />
       </Stack.Navigator>
     </NavigationContainer>
   );
