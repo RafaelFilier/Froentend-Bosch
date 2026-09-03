@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ProgressBar } from "react-native-paper";
 
@@ -11,7 +11,12 @@ export default function Home() {
           <Text style={{ color: '#fff', fontSize: 24, fontWeight: 'bold' }}>Olá, Usuario</Text>
           <Text style={{ color: '#7a7a7a', fontSize: 14, fontWeight: 'normal' }}>Pronto para evoluir hoje!</Text>
         </View>
-        <View style={styles.whiteBall} />
+        <View style={styles.whiteBall}>
+          <Image
+            source={require('../../assets/Images/user.jpeg')}
+            style={styles.profileImage}
+          />
+        </View>
         <View style={styles.xpContainer}>
           <Text style={styles.xpText}>15.067 / 20.000 XP</Text>
 
@@ -43,7 +48,14 @@ export default function Home() {
             />
           </View>
         </View>
-        <View style={styles.resumo_square}></View>
+        <View style={styles.resumo_square}>
+          <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold', marginLeft: 10, marginTop: 10 }}>Resumo da semana</Text>
+          <View style={styles.summary_row}>
+            <Text style={styles.summary_text}>❤️ 3 Treinos</Text>
+            <Text style={styles.summary_text}>🌟 120 pontos</Text>
+            <Text style={styles.summary_text}>🏆 10 treinos concluídos</Text>
+          </View>
+        </View>
         <TouchableOpacity
           style={styles.btnGreen}
         >
@@ -94,11 +106,16 @@ const styles = StyleSheet.create({
     width: 75,
     height: 75,
     borderRadius: 37.5,
-    backgroundColor: '#fff',
+    backgroundColor: '#0c0c0c',
     borderWidth: 2,
     borderColor: '#8BEA18',
     marginLeft: 20,
     marginTop: '2%',
+  },
+  profileImage: {
+    width: 70,
+    height: 72,
+    borderRadius: 37.5,
   },
 
   xpContainer: {
@@ -152,11 +169,22 @@ const styles = StyleSheet.create({
   },
   resumo_square: {
     width: '90%',
-    height: 70,
+    height: 110,
     alignSelf: 'center',
     marginTop: 5,
     borderRadius: 10,
     backgroundColor: '#141A24',
+  },
+  summary_row: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginTop: 12,
+  },
+  summary_text: {
+    color: '#9CA3AF',
+    fontSize: 14,
+    fontWeight: 'normal',
   },
 
   btnGreen: {
@@ -165,7 +193,7 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 30,
+    marginTop: 10,
     width: '90%',
     alignSelf: 'center',
   },
