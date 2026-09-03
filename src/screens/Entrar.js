@@ -33,9 +33,9 @@ const Entrar = ({ navigation }) => {
 
         <TouchableOpacity
             style={styles.btnGreen}
-            onPress={() => navigation.navigate('Entrar')}
+            onPress={() => navigation.navigate('Home')}
         >
-            <Text style={styles.btnText}>Cadastrar</Text>
+            <Text style={styles.btnText}>Entrar</Text>
         </TouchableOpacity>
     </View>
     </View>
