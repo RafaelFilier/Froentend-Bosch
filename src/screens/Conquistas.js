@@ -12,9 +12,6 @@ export default function Conquistas() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-            <Text style={styles.backIcon}>{'<'}</Text>
-        </TouchableOpacity>
         <View style={styles.text_user}>
           <Text style={{ color: '#fff', fontSize: 32, fontWeight: 'bold' }}>Conquistas</Text>
         </View>
@@ -84,6 +81,32 @@ export default function Conquistas() {
           </View>
         </View>
       </ScrollView>
+      <View style={styles.tabBar}>
+                <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Home')}>
+                  <Text style={styles.tabIcon}>⌂</Text>
+                  <Text style={styles.tabText}>Início</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Treino')}>
+                  <Text style={styles.tabIcon}>🏋</Text>
+                  <Text style={styles.tabText}>Treinos</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Batalha')}>
+                  <Text style={styles.tabIcon}>⚔️</Text>
+                  <Text style={styles.tabText}>Batalha</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.tabItem}>
+                  <Text style={[styles.tabIcon, styles.activeTab]}>🥇</Text>
+                  <Text style={[styles.tabText, styles.activeTab]}>Conquistas</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Ranking')}>
+                  <Text style={styles.tabIcon}>🏆</Text>
+                  <Text style={styles.tabText}>Ranking</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Perfil')}>
+                  <Text style={styles.tabIcon}>♙</Text>
+                  <Text style={styles.tabText}>Perfil</Text>
+                </TouchableOpacity>
+      </View>
 
     </View>
   );
@@ -120,7 +143,7 @@ const styles = StyleSheet.create({
   text_user: {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    marginTop: '5%',
+    marginTop: '20%',
     marginLeft: '10%',
   },
 
@@ -277,6 +300,36 @@ const styles = StyleSheet.create({
     color: '#000',
     fontWeight: 'bold',
     fontSize: 16,
+  },
+
+  tabBar: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 64,
+    backgroundColor: '#141A24',
+    borderTopWidth: 1,
+    borderTopColor: '#27313D',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingTop: 8,
+  },
+  tabItem: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  tabIcon: {
+    color: '#7A8491',
+    fontSize: 19,
+  },
+  tabText: {
+    color: '#7A8491',
+    fontSize: 10,
+    marginTop: 4,
+  },
+  activeTab: {
+    color: '#8EE524',
   },
 });
 

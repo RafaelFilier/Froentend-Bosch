@@ -52,9 +52,7 @@ export default function Ranking() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-          <Text style={styles.backIcon}>{'<'}</Text>
-        </TouchableOpacity>
+
 
         <Text style={styles.title}>Rankings</Text>
 
@@ -102,6 +100,33 @@ export default function Ranking() {
           )}
         </View>
       </ScrollView>
+      <View style={styles.tabBar}>
+          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Home')}>
+            <Text style={styles.tabIcon}>⌂</Text>
+            <Text style={styles.tabText}>Início</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Treino')}>
+            <Text style={styles.tabIcon}>🏋</Text>
+            <Text style={styles.tabText}>Treinos</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Batalha')}>
+            <Text style={styles.tabIcon}>⚔️</Text>
+            <Text style={styles.tabText}>Batalha</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Conquistas')}>
+            <Text style={styles.tabIcon}>🥇</Text>
+            <Text style={styles.tabText}>Conquistas</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.tabItem}>
+            <Text style={[styles.tabIcon, styles.activeTab]}>🏆</Text>
+            <Text style={[styles.tabText, styles.activeTab]}>Ranking</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Perfil')}>
+            <Text style={styles.tabIcon}>♙</Text>
+            <Text style={styles.tabText}>Perfil</Text>
+          </TouchableOpacity>
+        </View>
+
     </View>
   );
 }
@@ -135,7 +160,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 32,
     fontWeight: 'bold',
-    marginTop: 2,
+    marginTop: '15%',
     marginBottom: '6%',
   },
   scopeSelector: {

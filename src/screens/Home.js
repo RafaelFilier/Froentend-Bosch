@@ -69,7 +69,7 @@ export default function Home() {
       </ScrollView>
 
         <View style={styles.tabBar}>
-          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Home')}>
+          <TouchableOpacity style={styles.tabItem}>
             <Text style={[styles.tabIcon, styles.activeTab]}>⌂</Text>
             <Text style={[styles.tabText, styles.activeTab]}>Início</Text>
           </TouchableOpacity>
@@ -77,19 +77,19 @@ export default function Home() {
             <Text style={styles.tabIcon}>🏋</Text>
             <Text style={styles.tabText}>Treinos</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Batalha')}>
+          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Batalha')}>
             <Text style={styles.tabIcon}>⚔️</Text>
             <Text style={styles.tabText}>Batalha</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Conquistas')}>
+          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Conquistas')}>
             <Text style={styles.tabIcon}>🥇</Text>
             <Text style={styles.tabText}>Conquistas</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Ranking')}>
+          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Ranking')}>
             <Text style={styles.tabIcon}>🏆</Text>
             <Text style={styles.tabText}>Ranking</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Perfil')}>
+          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Perfil')}>
             <Text style={styles.tabIcon}>♙</Text>
             <Text style={styles.tabText}>Perfil</Text>
           </TouchableOpacity>

@@ -12,9 +12,6 @@ export default function Perfil() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-            <Text style={styles.backIcon}>{'<'}</Text>
-        </TouchableOpacity>
         <View style={styles.text_user}>
           <Text style={{ color: '#fff', fontSize: 24, fontWeight: 'bold' }}>Perfil</Text>
         </View>
@@ -87,17 +84,38 @@ export default function Perfil() {
           </View>
         </View>
         <TouchableOpacity
-          style={styles.btnGreen}
-        >
-          <Text style={styles.btnText}>Configurações</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
           onPress={() => navigation.navigate('Objetivos')}
           style={styles.btnGreen}
         >
           <Text style={styles.btnText}>Objetivos</Text>
         </TouchableOpacity>
       </ScrollView>
+      <View style={styles.tabBar}>
+          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Home')}>
+            <Text style={styles.tabIcon}>⌂</Text>
+            <Text style={styles.tabText}>Início</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Treino')}>
+            <Text style={styles.tabIcon}>🏋</Text>
+            <Text style={styles.tabText}>Treinos</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Batalha')}>
+            <Text style={styles.tabIcon}>⚔️</Text>
+            <Text style={styles.tabText}>Batalha</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Conquistas')}>
+            <Text style={styles.tabIcon}>🥇</Text>
+            <Text style={styles.tabText}>Conquistas</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Ranking')}>
+            <Text style={styles.tabIcon}>🏆</Text>
+            <Text style={styles.tabText}>Ranking</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.tabItem}>
+            <Text style={[styles.tabIcon, styles.activeTab]}>♙</Text>
+            <Text style={[styles.tabText, styles.activeTab]}>Perfil</Text>
+          </TouchableOpacity>
+        </View>
 
     </View>
   );
@@ -134,7 +152,7 @@ const styles = StyleSheet.create({
   text_user: {
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: '10%',
+    marginTop: '15%',
   },
 
   whiteBall: {
@@ -289,6 +307,36 @@ const styles = StyleSheet.create({
     color: '#000',
     fontWeight: 'bold',
     fontSize: 16,
+  },
+
+  tabBar: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 64,
+    backgroundColor: '#141A24',
+    borderTopWidth: 1,
+    borderTopColor: '#27313D',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingTop: 8,
+  },
+  tabItem: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  tabIcon: {
+    color: '#7A8491',
+    fontSize: 19,
+  },
+  tabText: {
+    color: '#7A8491',
+    fontSize: 10,
+    marginTop: 4,
+  },
+  activeTab: {
+    color: '#8EE524',
   },
 });
 

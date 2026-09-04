@@ -49,9 +49,6 @@ export default function Batalha() {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.conteudo} showsVerticalScrollIndicator={false}>
         <View style={styles.cabecalho}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.voltar}>
-            <Text style={styles.iconeVoltar}>{'<'}</Text>
-          </TouchableOpacity>
           <Text style={styles.titulo}>Batalhas</Text>
         </View>
         {dados.batalha?.status === 'ativa' ? (
@@ -98,6 +95,32 @@ export default function Batalha() {
           </View>
         ))}
       </ScrollView>
+              <View style={styles.tabBar}>
+                <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Home')}>
+                  <Text style={styles.tabIcon}>⌂</Text>
+                  <Text style={styles.tabText}>Início</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.tabItem} onPress={() => navigation.navigate('Treino')}>
+                  <Text style={styles.tabIcon}>🏋</Text>
+                  <Text style={styles.tabText}>Treinos</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.tabItem}>
+                  <Text style={[styles.tabIcon, styles.activeTab]}>⚔️</Text>
+                  <Text style={[styles.tabText, styles.activeTab]}>Batalha</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Conquistas')}>
+                  <Text style={styles.tabIcon}>🥇</Text>
+                  <Text style={styles.tabText}>Conquistas</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Ranking')}>
+                  <Text style={styles.tabIcon}>🏆</Text>
+                  <Text style={styles.tabText}>Ranking</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.tabItem} onPress={() => navigation.replace('Perfil')}>
+                  <Text style={styles.tabIcon}>♙</Text>
+                  <Text style={styles.tabText}>Perfil</Text>
+                </TouchableOpacity>
+              </View>
     </View>
   );
 }
@@ -113,36 +136,204 @@ function Jogador({ jogador, cor }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#0B0F17' },
-  conteudo: { paddingHorizontal: 12, paddingTop: 24, paddingBottom: 30 },
-  cabecalho: { flexDirection: 'row', alignItems: 'center', marginBottom: 14 },
-  voltar: { width: 32, height: 32, justifyContent: 'center' },
-  iconeVoltar: { color: '#FFF', fontSize: 34, lineHeight: 34 },
-  titulo: { color: '#FFF', fontSize: 25, fontWeight: 'bold', marginLeft: 7 },
-  confronto: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', marginTop: 23 },
-  jogador: { alignItems: 'center', width: 112 },
-  molduraAvatar: { width: 76, height: 76, padding: 3, borderRadius: 40, borderWidth: 2 },
-  avatar: { width: '100%', height: '100%', borderRadius: 40 },
-  nomeJogador: { color: '#FFF', fontSize: 16, fontWeight: 'bold', marginTop: 7 },
-  nivel: { color: '#969BA3', fontSize: 12, marginTop: 2 },
-  vs: { color: '#FFF', fontSize: 39, fontWeight: 'bold' },
-  barra: { color: '#5D626A', fontWeight: 'normal' },
-  terminaLabel: { color: '#A3A7AD', fontSize: 11, textAlign: 'center', marginTop: 9 },
-  terminaValor: { color: '#A3A7AD', fontSize: 11, textAlign: 'center' },
-  cartaoEstatisticas: { backgroundColor: '#141A24', borderRadius: 17, padding: 11, marginTop: 6 },
-  estatistica: { marginBottom: 7 },
-  linhaEstatistica: { flexDirection: 'row', alignItems: 'center' },
-  valor: { color: '#FFF', fontSize: 15, fontWeight: 'bold', width: '25%' },
-  valorDireita: { textAlign: 'right' },
-  nomeEstatistica: { color: '#FFF', fontSize: 15, fontWeight: 'bold', textAlign: 'center', width: '50%' },
-  trilho: { flexDirection: 'row', height: 7, borderRadius: 5, overflow: 'hidden', marginTop: 3 },
-  barraJogador: { backgroundColor: '#9500FF' },
-  barraAdversario: { backgroundColor: '#8EE524' },
-  tituloSecao: { color: '#FFF', fontSize: 15, fontWeight: 'bold', marginTop: 8, marginBottom: 6 },
-  amigo: { minHeight: 57, backgroundColor: '#141A24', borderRadius: 15, paddingHorizontal: 8, flexDirection: 'row', alignItems: 'center' },
-  avatarAmigo: { width: 43, height: 43, borderRadius: 22, borderColor: '#8EE524', borderWidth: 2 },
-  nomeAmigo: { color: '#FFF', fontSize: 17, fontWeight: 'bold', marginLeft: 12, flex: 1 },
-  botaoDesafiar: { borderColor: '#55C94A', borderWidth: 2, borderRadius: 7, paddingHorizontal: 10, paddingVertical: 2 },
-  textoDesafiar: { color: '#55C94A', fontSize: 12, fontWeight: 'bold' },
-  vazio: { color: '#9CA3AF', textAlign: 'center', marginTop: 45 },
+  container: {
+    flex: 1,
+    backgroundColor: '#0B0F17',
+  },
+  conteudo: {
+    paddingHorizontal: 12,
+    paddingTop: 24,
+    paddingBottom: 90,
+  },
+  cabecalho: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 14,
+  },
+  voltar: {
+    width: 32,
+    height: 32,
+    justifyContent: 'center',
+  },
+  iconeVoltar: {
+    color: '#FFF',
+    fontSize: 34,
+    lineHeight: 34,
+  },
+  titulo: {
+    color: '#FFF',
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginLeft: 7,
+  },
+  confronto: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    marginTop: 23,
+  },
+  jogador: {
+    alignItems: 'center',
+    width: 112,
+  },
+  molduraAvatar: {
+    width: 76,
+    height: 76,
+    padding: 3,
+    borderRadius: 40,
+    borderWidth: 2,
+  },
+  avatar: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 40,
+  },
+  nomeJogador: {
+    color: '#FFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 7,
+  },
+  nivel: {
+    color: '#969BA3',
+    fontSize: 12,
+    marginTop: 2,
+  },
+  vs: {
+    color: '#FFF',
+    fontSize: 39,
+    fontWeight: 'bold',
+  },
+  barra: {
+    color: '#5D626A',
+    fontWeight: 'normal',
+  },
+  terminaLabel: {
+    color: '#A3A7AD',
+    fontSize: 11,
+    textAlign: 'center',
+    marginTop: 9,
+  },
+  terminaValor: {
+    color: '#A3A7AD',
+    fontSize: 11,
+    textAlign: 'center',
+  },
+  cartaoEstatisticas: {
+    backgroundColor: '#141A24',
+    borderRadius: 17,
+    padding: 12,
+    marginTop: 8,
+  },
+  estatistica: {
+    marginBottom: 8,
+  },
+  linhaEstatistica: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  valor: {
+    color: '#FFF',
+    fontSize: 15,
+    fontWeight: 'bold',
+    width: '25%',
+  },
+  valorDireita: {
+    textAlign: 'right',
+  },
+  nomeEstatistica: {
+    color: '#FFF',
+    fontSize: 15,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    width: '50%',
+  },
+  trilho: {
+    flexDirection: 'row',
+    height: 7,
+    borderRadius: 5,
+    overflow: 'hidden',
+    marginTop: 4,
+  },
+  barraJogador: {
+    backgroundColor: '#9500FF',
+  },
+  barraAdversario: {
+    backgroundColor: '#8EE524',
+  },
+  tituloSecao: {
+    color: '#FFF',
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginTop: 10,
+    marginBottom: 6,
+  },
+  amigo: {
+    minHeight: 57,
+    backgroundColor: '#141A24',
+    borderRadius: 15,
+    paddingHorizontal: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  avatarAmigo: {
+    width: 43,
+    height: 43,
+    borderRadius: 22,
+    borderColor: '#8EE524',
+    borderWidth: 2,
+  },
+  nomeAmigo: {
+    color: '#FFF',
+    fontSize: 17,
+    fontWeight: 'bold',
+    marginLeft: 12,
+    flex: 1,
+  },
+  botaoDesafiar: {
+    borderColor: '#55C94A',
+    borderWidth: 2,
+    borderRadius: 7,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+  },
+  textoDesafiar: {
+    color: '#55C94A',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  vazio: {
+    color: '#9CA3AF',
+    textAlign: 'center',
+    marginTop: 45,
+  },
+  tabBar: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 64,
+    backgroundColor: '#141A24',
+    borderTopWidth: 1,
+    borderTopColor: '#27313D',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingTop: 8,
+  },
+  tabItem: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  tabIcon: {
+    color: '#7A8491',
+    fontSize: 19,
+  },
+  tabText: {
+    color: '#7A8491',
+    fontSize: 10,
+    marginTop: 4,
+  },
+  activeTab: {
+    color: '#8EE524',
+  },
 });

@@ -55,7 +55,7 @@ export default function TreinoConcluido() {
 
       <TouchableOpacity
         style={styles.continueButton}
-        onPress={() => navigation.navigate('Home')}
+        onPress={() => navigation.replace('Home')}
         activeOpacity={0.85}
       >
         <Text style={styles.continueText}>Continuar</Text>
